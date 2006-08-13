@@ -124,12 +124,11 @@ fi
 
 AC_DEFINE_UNQUOTED([GW_DEBUG_LOG], [$GW_DEBUG_LOG], [debug logging])
 
-AC_CONFIG_HEADER([ddbd/config.h])
 AC_CONFIG_HEADER([gmds/config.h])
 AC_CONFIG_HEADER([mdextractor/config.h])
 AC_CONFIG_HEADER([mdextractor/Extractors/extractors.h])
 
-AC_CONFIG_FILES([gmds/GNUmakefile mdextractor/GNUmakefile mdextractor/Extractors/GNUmakefile ddbd/GNUmakefile])
+AC_CONFIG_FILES([gmds/GNUmakefile mdextractor/GNUmakefile mdextractor/Extractors/GNUmakefile])
 
 AC_OUTPUT
 

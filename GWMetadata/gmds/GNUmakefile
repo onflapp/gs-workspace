@@ -5,8 +5,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 
 SUBPROJECTS = \
 gmds \
-mdextractor \
-ddbd
+mdextractor 
         
 -include GNUmakefile.preamble
 

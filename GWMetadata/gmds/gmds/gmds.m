@@ -29,14 +29,18 @@
 #include "config.h"
 
 #define GWDebugLog(format, args...) \
-  do { if (GW_DEBUG_LOG) \
-    NSLog(format , ## args); } while (0)
+  do { \
+    if (GW_DEBUG_LOG) { \
+      NSLog(format , ## args); \
+    } \
+  } while (0)
 
 #define GWPrintfDebugLog(format, args...) \
   do { \
-    if (GW_DEBUG_LOG) \
-    fprintf(stderr, format , ## args); \
-    fflush(stderr); \
+    if (GW_DEBUG_LOG) { \
+      fprintf(stderr, format , ## args); \
+      fflush(stderr); \
+    } \
   } while (0)
 
 #define MAX_RETRY 1000
@@ -65,6 +69,7 @@ static void word_score(sqlite3_context *context, int argc, sqlite3_value **argv)
   float score = (1.0 * posting_wcount / path_wcount);
 
   if (searchlen != foundlen) {
+    /* TODO a better correction algorithm for score */
     score *= (1.0 * searchlen / foundlen);    
   } 
 

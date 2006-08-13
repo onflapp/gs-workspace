@@ -379,7 +379,6 @@ static NSString *nibName = @"GMDSClient";
 
 @end
 
-// GSMDItemTextContent
 
 @implementation GMDSClient (queries)
 
@@ -542,6 +541,8 @@ static NSString *nibName = @"GMDSClient";
 
 @end
 
+
+// GSMDItemTextContent
 
 @implementation GMDSClient (text_contents_queries)
 
