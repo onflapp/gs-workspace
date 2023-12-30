@@ -924,7 +924,9 @@
                       nil))
     {
       [logoutTimer invalidate]; 
-      [self doLogout: nil];
+      [self performSelector:@selector(doLogout:) 
+                 withObject: nil 
+                 afterDelay:0.1];
     }
   else
     {
