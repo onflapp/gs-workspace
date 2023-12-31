@@ -2221,7 +2221,9 @@ static GWorkspace *gworkspace = nil;
 //
 - (void)logout:(id)sender
 {
-  [self startLogout];
+  [self performSelector:@selector(startLogout) 
+             withObject:nil 
+             afterDelay:0.1];
 }
 
 - (void)showInfo:(id)sender
