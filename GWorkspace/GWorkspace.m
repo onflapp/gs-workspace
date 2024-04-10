@@ -705,17 +705,17 @@ static GWorkspace *gworkspace = nil;
 
 - (NSString *)defEditor
 {
-	return defEditor;
+  return defEditor;
 }
 
 - (NSString *)defXterm
 {
-	return defXterm;
+  return defXterm;
 }
 
 - (NSString *)defXtermArgs
 {
-	return defXtermArgs;
+  return defXtermArgs;
 }
 
 - (GWViewersManager *)viewersManager
@@ -730,7 +730,7 @@ static GWorkspace *gworkspace = nil;
 
 - (History *)historyWindow
 {
-	return history;
+  return history;
 }
 
 - (id)rootViewer
@@ -770,7 +770,6 @@ static GWorkspace *gworkspace = nil;
   
   if (viewer == nil)
     viewer = [vwrsManager showRootViewer];
-  
   
   nodeView = [viewer nodeView];
   [nodeView showContentsOfNode: parentnode];
@@ -815,11 +814,11 @@ static GWorkspace *gworkspace = nil;
 {
   NSString *tshelfPBFileNName;
 
-	tshelfPBFileNum++;
-  
-	if (tshelfPBFileNum >= TSHF_MAXF) {
-		tshelfPBFileNum = 0;
-	}
+  tshelfPBFileNum++;
+  if (tshelfPBFileNum >= TSHF_MAXF)
+    {
+      tshelfPBFileNum = 0;
+    }
   
   tshelfPBFileNName = [NSString stringWithFormat: @"%i", tshelfPBFileNum];
   
@@ -864,45 +863,53 @@ static GWorkspace *gworkspace = nil;
 
   [tshelfWin saveDefaults];  
    
-	if ([tshelfWin isVisible]) {
-		[defaults setBool: YES forKey: @"tshelf"];
-	} else {
-		[defaults setBool: NO forKey: @"tshelf"];
-	}
+  if ([tshelfWin isVisible])
+    {
+    [defaults setBool: YES forKey: @"tshelf"];
+    }
+  else
+    {
+      [defaults setBool: NO forKey: @"tshelf"];
+    }
   [defaults setObject: [NSString stringWithFormat: @"%i", tshelfPBFileNum]
                forKey: @"tshelfpbfnum"];
-		
-	if ([[prefController myWin] isVisible]) {  
-		[prefController updateDefaults]; 
-	}
+
+  if ([[prefController myWin] isVisible])
+    {
+      [prefController updateDefaults]; 
+    }
 	
-	if ((fiend != nil) && ([[fiend myWin] isVisible])) {  
-		[fiend updateDefaults]; 
-    [defaults setBool: YES forKey: @"usefiend"];
-	} else {
-    [defaults setBool: NO forKey: @"usefiend"];
-	}
-  
-	[history updateDefaults];
-  
+  if ((fiend != nil) && ([[fiend myWin] isVisible]))
+    {
+      [fiend updateDefaults]; 
+      [defaults setBool: YES forKey: @"usefiend"];
+    }
+  else
+    {
+      [defaults setBool: NO forKey: @"usefiend"];
+    }
+
+  [history updateDefaults];
+
   [defaults setObject: [fsnodeRep hiddenPaths] 
                forKey: @"hiddendirs"];
 
   entry = [NSNumber numberWithInt: [fsnodeRep defaultSortOrder]];
   [defaults setObject: entry forKey: @"default_sortorder"];
-  
+
   [vwrsManager updateDefaults];
 
   [dtopManager updateDefaults];
   [defaults setBool: ![dtopManager isActive] forKey: @"no_desktop"];
 
   [finder updateDefaults];
-  
+
   [defaults setObject: defEditor forKey: @"defaulteditor"];
   [defaults setObject: defXterm forKey: @"defxterm"];
-  if (defXtermArgs != nil) {
-	  [defaults setObject: defXtermArgs forKey: @"defaultxtermargs"];
-  }
+  if (defXtermArgs != nil)
+    {
+      [defaults setObject: defXtermArgs forKey: @"defaultxtermargs"];
+    }
 
   [defaults setBool: teminalService forKey: @"terminal_services"];
 	
@@ -1530,31 +1537,31 @@ static GWorkspace *gworkspace = nil;
 
 - (BOOL)verifyFileAtPath:(NSString *)path
 {
-	if ([fm fileExistsAtPath: path] == NO) {
-		NSString *err = NSLocalizedString(@"Error", @"");
-		NSString *msg = NSLocalizedString(@": no such file or directory!", @"");
-		NSString *buttstr = NSLocalizedString(@"Continue", @"");
-		NSMutableDictionary *notifObj = [NSMutableDictionary dictionaryWithCapacity: 1];		
-		NSString *basePath = [path stringByDeletingLastPathComponent];
+  if ([fm fileExistsAtPath: path] == NO)
+    {
+      NSString *err = NSLocalizedString(@"Error", @"");
+      NSString *msg = NSLocalizedString(@": no such file or directory!", @"");
+      NSString *buttstr = NSLocalizedString(@"Continue", @"");
+      NSMutableDictionary *notifObj = [NSMutableDictionary dictionaryWithCapacity: 1];		
+      NSString *basePath = [path stringByDeletingLastPathComponent];
 		
-    NSRunAlertPanel(err, [NSString stringWithFormat: @"%@%@", path, msg], buttstr, nil, nil);   
+      NSRunAlertPanel(err, [NSString stringWithFormat: @"%@%@", path, msg], buttstr, nil, nil);   
 
-		[notifObj setObject: NSWorkspaceDestroyOperation forKey: @"operation"];	
-  	[notifObj setObject: basePath forKey: @"source"];	
-  	[notifObj setObject: basePath forKey: @"destination"];	
-  	[notifObj setObject: [NSArray arrayWithObjects: path, nil] forKey: @"files"];	
+      [notifObj setObject: NSWorkspaceDestroyOperation forKey: @"operation"];	
+      [notifObj setObject: basePath forKey: @"source"];	
+      [notifObj setObject: basePath forKey: @"destination"];	
+      [notifObj setObject: [NSArray arrayWithObjects: path, nil] forKey: @"files"];	
 
-		[[NSNotificationCenter defaultCenter]
+      [[NSNotificationCenter defaultCenter]
  					 postNotificationName: @"GWFileSystemWillChangeNotification"
-	 									object: notifObj];
-
-		[[NSNotificationCenter defaultCenter]
+						       object: notifObj];
+      [[NSNotificationCenter defaultCenter]
  				  postNotificationName: @"GWFileSystemDidChangeNotification"
-	 									object: notifObj];
-		return NO;
-	}
+						object: notifObj];
+      return NO;
+    }
 	
-	return YES;
+  return YES;
 }
 
 - (void)setUsesThumbnails:(BOOL)value
@@ -2124,8 +2131,8 @@ static GWorkspace *gworkspace = nil;
       NSRunAlertPanel(nil,
               NSLocalizedString(@"unable to contact mdextractor!", @""),
               NSLocalizedString(@"Ok", @""),
-              nil, 
-              nil);  
+              nil,
+              nil);
     }
   }
 }
@@ -2135,28 +2142,29 @@ static GWorkspace *gworkspace = nil;
   id connection = [notif object];
 
   [[NSNotificationCenter defaultCenter] removeObserver: self
-	              name: NSConnectionDidDieNotification
-	            object: connection];
+						  name: NSConnectionDidDieNotification
+						object: connection];
 
   NSAssert(connection == [mdextractor connectionForProxy],
-		                                  NSInternalInconsistencyException);
+	   NSInternalInconsistencyException);
   RELEASE (mdextractor);
   mdextractor = nil;
 
   if (NSRunAlertPanel(nil,
-                    NSLocalizedString(@"The mdextractor connection died.\nDo you want to restart it?", @""),
-                    NSLocalizedString(@"Yes", @""),
-                    NSLocalizedString(@"No", @""),
-                    nil)) {
-    [self connectMDExtractor];                
-  }  
+		      NSLocalizedString(@"The mdextractor connection died.\nDo you want to restart it?", @""),
+		      NSLocalizedString(@"Yes", @""),
+		      NSLocalizedString(@"No", @""),
+		      nil))
+    {
+      [self connectMDExtractor];
+    }
 }
 
 - (void)slideImage:(NSImage *)image 
-							from:(NSPoint)fromPoint 
-								to:(NSPoint)toPoint
+	      from:(NSPoint)fromPoint
+		to:(NSPoint)toPoint
 {
-	[[NSWorkspace sharedWorkspace] slideImage: image from: fromPoint to: toPoint];
+  [[NSWorkspace sharedWorkspace] slideImage: image from: fromPoint to: toPoint];
 }
 
 
@@ -2167,15 +2175,15 @@ static GWorkspace *gworkspace = nil;
                      returnType:(NSString *)returnType
 {	
   BOOL sendOK = ((sendType == nil) || ([sendType isEqual: NSFilenamesPboardType]));
-  BOOL returnOK = ((returnType == nil) 
-                      || ([returnType isEqual: NSFilenamesPboardType] 
-                                              && (selectedPaths != nil)));
+  BOOL returnOK = ((returnType == nil)
+		   || ([returnType isEqual: NSFilenamesPboardType]
+		       && (selectedPaths != nil)));
 
-  if (sendOK && returnOK) {
-		return self;
-	}
-		
-	return nil;
+  if (sendOK && returnOK)
+    {
+      return self;
+    }
+  return nil;
 }
 	
 - (BOOL)readSelectionFromPasteboard:(NSPasteboard *)pboard
@@ -2348,36 +2356,39 @@ static GWorkspace *gworkspace = nil;
       [menu removeItemAtIndex: 0];
     }
 
-  [menu addItemWithTitle: NSLocalizedString(@"Hide Fiend", @"") 
-                  action: @selector(hideFiend:) keyEquivalent: @""];	
-  [menu addItemWithTitle: NSLocalizedString(@"Remove Current Layer", @"") 
-                  action: @selector(removeFiendLayer:) keyEquivalent: @""];	
-  [menu addItemWithTitle: NSLocalizedString(@"Rename Current Layer", @"") 
+  [menu addItemWithTitle: NSLocalizedString(@"Hide Fiend", @"")
+                  action: @selector(hideFiend:) keyEquivalent: @""];
+  [menu addItemWithTitle: NSLocalizedString(@"Remove Current Layer", @"")
+                  action: @selector(removeFiendLayer:) keyEquivalent: @""];
+  [menu addItemWithTitle: NSLocalizedString(@"Rename Current Layer", @"")
                   action: @selector(renameFiendLayer:) keyEquivalent: @""];	
-  [menu addItemWithTitle: NSLocalizedString(@"Add Layer...", @"") 
-                  action: @selector(addFiendLayer:) keyEquivalent: @""];								
+  [menu addItemWithTitle: NSLocalizedString(@"Add Layer...", @"")
+                  action: @selector(addFiendLayer:) keyEquivalent: @""];
 
   [fiend activate];
 }
 
 - (void)hideFiend:(id)sender
 {
-	NSMenu *menu = [[[NSApp mainMenu] itemWithTitle: NSLocalizedString(@"Tools", @"")] submenu];
-	menu = [[menu itemWithTitle: NSLocalizedString(@"Fiend", @"")] submenu];
+  NSMenu *menu = [[[NSApp mainMenu] itemWithTitle: NSLocalizedString(@"Tools", @"")] submenu];
+  menu = [[menu itemWithTitle: NSLocalizedString(@"Fiend", @"")] submenu];
 
-	 while (1) {
-  	 if ([menu numberOfItems] == 0) {
-    	 break;
-  	 }
-  	 [menu removeItemAtIndex: 0];
-	 }
+  while (1)
+    {
+      if ([menu numberOfItems] == 0)
+	{
+	  break;
+	}
+      [menu removeItemAtIndex: 0];
+    }
 
-	[menu addItemWithTitle: NSLocalizedString(@"Show Fiend", @"") 
-									action: @selector(showFiend:) keyEquivalent: @""];		
+  [menu addItemWithTitle: NSLocalizedString(@"Show Fiend", @"")
+		  action: @selector(showFiend:) keyEquivalent: @""];
 
-  if (fiend != nil) {    
-    [fiend hide];
-  }
+  if (fiend != nil)
+    {
+      [fiend hide];
+    }
 }
 
 - (void)addFiendLayer:(id)sender
@@ -2397,8 +2408,8 @@ static GWorkspace *gworkspace = nil;
 
 - (void)showTShelf:(id)sender
 {
-	NSMenu *menu = [[[NSApp mainMenu] itemWithTitle: NSLocalizedString(@"Tools", @"")] submenu];
-	menu = [[menu itemWithTitle: NSLocalizedString(@"Tabbed Shelf", @"")] submenu];
+  NSMenu *menu = [[[NSApp mainMenu] itemWithTitle: NSLocalizedString(@"Tools", @"")] submenu];
+  menu = [[menu itemWithTitle: NSLocalizedString(@"Tabbed Shelf", @"")] submenu];
 
   [[menu itemAtIndex: 0] setTitle: NSLocalizedString(@"Hide Tabbed Shelf", @"")];
   [[menu itemAtIndex: 0] setAction: @selector(hideTShelf:)];
@@ -2408,22 +2419,24 @@ static GWorkspace *gworkspace = nil;
 
 - (void)hideTShelf:(id)sender
 {
-	NSMenu *menu = [[[NSApp mainMenu] itemWithTitle: NSLocalizedString(@"Tools", @"")] submenu];
-	menu = [[menu itemWithTitle: NSLocalizedString(@"Tabbed Shelf", @"")] submenu];
+  NSMenu *menu = [[[NSApp mainMenu] itemWithTitle: NSLocalizedString(@"Tools", @"")] submenu];
+  menu = [[menu itemWithTitle: NSLocalizedString(@"Tabbed Shelf", @"")] submenu];
 
   [[menu itemAtIndex: 0] setTitle: NSLocalizedString(@"Show Tabbed Shelf", @"")];
   [[menu itemAtIndex: 0] setAction: @selector(showTShelf:)];
 
-	if ([tshelfWin isVisible]) {
-    [tshelfWin deactivate]; 
-	}
+  if ([tshelfWin isVisible])
+    {
+      [tshelfWin deactivate];
+    }
 }
 
 - (void)selectSpecialTShelfTab:(id)sender
 {
-  if ([tshelfWin isVisible] == NO) {
-    [tshelfWin activate];
-  }
+  if ([tshelfWin isVisible] == NO)
+    {
+      [tshelfWin activate];
+    }
   [[tshelfWin shelfView] selectLastItem];
 }
 
@@ -2446,42 +2459,51 @@ static GWorkspace *gworkspace = nil;
 {
   NSWindow *kwin = [NSApp keyWindow];
 
-  if (kwin) {
-    if ([kwin isKindOfClass: [TShelfWin class]]) {
-      TShelfViewItem *item = [[tshelfWin shelfView] selectedTabItem];
+  if (kwin)
+    {
+      if ([kwin isKindOfClass: [TShelfWin class]])
+	{
+	  TShelfViewItem *item = [[tshelfWin shelfView] selectedTabItem];
 
-      if (item) {
-        TShelfIconsView *iview = (TShelfIconsView *)[item view];
-        [iview doCut];    
-      }
-      
-    } else if ([vwrsManager hasViewerWithWindow: kwin]
-                                  || [dtopManager hasWindow: kwin]) {
-      id nodeView;
-      NSArray *selection;
-      NSArray *basesel;
-      
-      if ([vwrsManager hasViewerWithWindow: kwin]) {
-        nodeView = [[vwrsManager viewerWithWindow: kwin] nodeView];
-      } else {
-        nodeView = [dtopManager desktopView];
-      }
-    
-      selection = [nodeView selectedPaths];  
-      basesel = [NSArray arrayWithObject: [[nodeView baseNode] path]];
-      
-      if ([selection count] && ([selection isEqual: basesel] == NO)) {
-        NSPasteboard *pb = [NSPasteboard generalPasteboard];
+	  if (item)
+	    {
+	      TShelfIconsView *iview = (TShelfIconsView *)[item view];
+	      [iview doCut];
+	    }
+	}
+      else if ([vwrsManager hasViewerWithWindow: kwin]
+                                  || [dtopManager hasWindow: kwin])
+	{
+	  id nodeView;
+	  NSArray *selection;
+	  NSArray *basesel;
 
-        [pb declareTypes: [NSArray arrayWithObject: NSFilenamesPboardType]
-                   owner: nil];
+	  if ([vwrsManager hasViewerWithWindow: kwin])
+	    {
+	      nodeView = [[vwrsManager viewerWithWindow: kwin] nodeView];
+	    }
+	  else
+	    {
+	      nodeView = [dtopManager desktopView];
+	    }
 
-        if ([pb setPropertyList: selection forType: NSFilenamesPboardType]) {
-          [fileOpsManager setFilenamesCut: YES];
-        }
-      }
-    } 
-  }
+	  selection = [nodeView selectedPaths];
+	  basesel = [NSArray arrayWithObject: [[nodeView baseNode] path]];
+
+	  if ([selection count] && ([selection isEqual: basesel] == NO))
+	    {
+	      NSPasteboard *pb = [NSPasteboard generalPasteboard];
+
+	      [pb declareTypes: [NSArray arrayWithObject: NSFilenamesPboardType]
+			 owner: nil];
+
+	      if ([pb setPropertyList: selection forType: NSFilenamesPboardType])
+		{
+		  [fileOpsManager setFilenamesCut: YES];
+		}
+	    }
+	}
+    }
 }
 
 - (void)copy:(id)sender
@@ -2611,32 +2633,36 @@ static GWorkspace *gworkspace = nil;
   int count = [subNodes count];
   NSUInteger i;  
   
-  for (i = 0; i < count; i++) {
-    FSNode *nd = [subNodes objectAtIndex: i];
-  
-    if ([nd isReserved]) {
-      [subNodes removeObjectAtIndex: i];
-      i--;
-      count --;
+  for (i = 0; i < count; i++)
+    {
+      FSNode *nd = [subNodes objectAtIndex: i];
+
+      if ([nd isReserved])
+	{
+	  [subNodes removeObjectAtIndex: i];
+	  i--;
+	  count --;
+	}
     }
-  }  
   
-  if ([subNodes count]) {
-    NSMutableArray *files = [NSMutableArray array];
-    NSMutableDictionary *opinfo = [NSMutableDictionary dictionary];
+  if ([subNodes count])
+    {
+      NSMutableArray *files = [NSMutableArray array];
+      NSMutableDictionary *opinfo = [NSMutableDictionary dictionary];
 
-    for (i = 0; i < [subNodes count]; i++) {
-      [files addObject: [[(FSNode *)[subNodes objectAtIndex: i] path] lastPathComponent]];
+      for (i = 0; i < [subNodes count]; i++)
+	{
+	  [files addObject: [[(FSNode *)[subNodes objectAtIndex: i] path] lastPathComponent]];
+	}
+
+      [opinfo setObject: @"GWorkspaceEmptyRecyclerOperation" forKey: @"operation"];
+      [opinfo setObject: trashPath forKey: @"source"];
+      [opinfo setObject: trashPath forKey: @"destination"];
+      [opinfo setObject: files forKey: @"files"];
+
+      [self performFileOperation: opinfo];
     }
 
-    [opinfo setObject: @"GWorkspaceEmptyRecyclerOperation" forKey: @"operation"];
-    [opinfo setObject: trashPath forKey: @"source"];
-    [opinfo setObject: trashPath forKey: @"destination"];
-    [opinfo setObject: files forKey: @"files"];
-
-    [self performFileOperation: opinfo];
-  }
-  
   RELEASE (subNodes);
   RELEASE (arp);
 }
@@ -2802,7 +2828,7 @@ static GWorkspace *gworkspace = nil;
 
 - (NSString *)trashPath
 {
-	static NSString *tpath = nil; 
+  static NSString *tpath = nil;
   
   if (tpath == nil) {
     tpath = [NSHomeDirectory() stringByAppendingPathComponent: @".Trash"]; 
