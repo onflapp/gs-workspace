@@ -30,6 +30,7 @@ ADDITIONAL_GUI_LIBS += -lOperation
 
 GWorkspace_RESOURCE_FILES = \
   Resources/Icons/* \
+  Resources/Scripting/* \
   Resources/English.lproj \
   Resources/BrasilPortuguese.lproj \
   Resources/Dutch.lproj \
@@ -67,6 +68,8 @@ GWorkspace_OBJC_FILES = main.m \
 GWFunctions.m \
 GWorkspace.m \
 WorkspaceApplication.m \
+STScriptingSupport.m \
+GWorkspace+scripting.m \
 Desktop/GWDesktopManager.m \
 Desktop/GWDesktopWindow.m \
 Desktop/GWDesktopView.m \

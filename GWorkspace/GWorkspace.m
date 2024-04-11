@@ -314,6 +314,12 @@ static GWorkspace *gworkspace = nil;
   services = AUTORELEASE ([NSMenu new]);
   [mainMenu setSubmenu: services forItem: menuItem];		
 
+  // Scripts
+  if([NSApp isScriptingSupported]) 
+  {
+    menuItem = [mainMenu addItemWithTitle:_(@"Scripts") action:NULL keyEquivalent:@""];
+  }
+
   // Hide
   [mainMenu addItemWithTitle:_(@"Hide") action:@selector(hide:) keyEquivalent:@"h"];
   [mainMenu addItemWithTitle:_(@"Hide Others") action:@selector(hideOtherApplications:)  keyEquivalent:@"H"];
@@ -583,6 +589,11 @@ static GWorkspace *gworkspace = nil;
             object: nil];
   
   [self initializeWorkspace]; 
+
+  if([NSApp isScriptingSupported]) 
+  {
+    [NSApp initializeApplicationScripting];
+  }
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)aNotification
@@ -2221,6 +2232,41 @@ static GWorkspace *gworkspace = nil;
       path = [path stringByTrimmingCharactersInSet:
 		     [NSCharacterSet whitespaceAndNewlineCharacterSet]];
       [self openSelectedPaths: [NSArray arrayWithObject: path] newViewer: YES];
+    }
+  else if ([types containsObject: NSFilenamesPboardType])
+    {
+      NSArray *paths = (NSArray *)[pboard propertyListForType: NSFilenamesPboardType];
+      [self openSelectedPaths: paths newViewer: YES];
+    }
+}
+
+- (void)revealInWorkspace:(NSPasteboard *)pboard
+	         userData:(NSString *)userData
+   		    error:(NSString **)error
+{
+  NSArray *types = [pboard types];
+  NSString *path = nil;
+
+  if ([types containsObject: NSStringPboardType])
+    {
+      path = [pboard stringForType: NSStringPboardType];
+      path = [path stringByTrimmingCharactersInSet:
+		     [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    }
+  else if ([types containsObject: NSFilenamesPboardType])
+    {
+      path = [[pboard propertyListForType: NSFilenamesPboardType] firstObject];
+    }
+
+  if (!path)
+    return;
+
+  FSNode *node = [FSNode nodeWithPath: path];
+  if (node && [node isValid]) 
+    {
+      FSNode *base = [FSNode nodeWithPath: path_separator()];
+      [vwrsManager selectRepOfNode: node inViewerWithBaseNode: base];
+      [[vwrsManager viewerWithBaseNode: base] activate];
     }
 }
 

@@ -27,7 +27,15 @@
         };
         NSMessage = openInWorkspace;
         NSPortName = GWorkspace;
-        NSSendTypes = ( NSStringPboardType );
+        NSSendTypes = ( NSStringPboardType, NSFilenamesPboardType );
+      },
+      {
+        NSMenuItem = {
+          default = "Reveal File";
+        };
+        NSMessage = revealInWorkspace;
+        NSPortName = GWorkspace;
+        NSSendTypes = ( NSStringPboardType, NSFilenamesPboardType );
       }
     );
     NSTypes = (

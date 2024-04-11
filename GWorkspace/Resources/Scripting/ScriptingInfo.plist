@@ -1,0 +1,11 @@
+{
+  Classes =
+  (
+    GWorkspace,
+    GWViewer
+  );
+  Objects =
+  {
+    currentViewer = "currentViewer";
+  };
+}

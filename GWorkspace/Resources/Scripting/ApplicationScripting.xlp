@@ -1,0 +1,11 @@
+- currentViewer -> viewer
+- viewers -> array
+
+- deleteSelectedFiles
+- moveSelectedFilesToTrash
+- duplicateSelectedFiles
+- inspectFile:
+
+- selectedFiles -> array
+
+Viewer
