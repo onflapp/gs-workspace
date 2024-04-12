@@ -31,10 +31,19 @@
       },
       {
         NSMenuItem = {
-          default = "Reveal File";
+          default = "GWorkspace/Reveal File";
         };
         NSMessage = revealInWorkspace;
         NSPortName = GWorkspace;
+        NSSendTypes = ( NSStringPboardType, NSFilenamesPboardType );
+      },
+      {
+        NSMenuItem = {
+          default = "GWorkspace/Inspect File";
+        };
+        NSMessage = revealInWorkspace;
+        NSPortName = GWorkspace;
+        NSUserData = inspect;
         NSSendTypes = ( NSStringPboardType, NSFilenamesPboardType );
       }
     );

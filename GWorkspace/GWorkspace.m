@@ -2226,17 +2226,17 @@ static GWorkspace *gworkspace = nil;
 		  error:(NSString **)error
 {
   NSArray *types = [pboard types];
-  if ([types containsObject: NSStringPboardType])
+  if ([types containsObject: NSFilenamesPboardType])
+    {
+      NSArray *paths = (NSArray *)[pboard propertyListForType: NSFilenamesPboardType];
+      [self openSelectedPaths: paths newViewer: YES];
+    }
+  else if ([types containsObject: NSStringPboardType])
     {
       NSString *path = [pboard stringForType: NSStringPboardType];
       path = [path stringByTrimmingCharactersInSet:
 		     [NSCharacterSet whitespaceAndNewlineCharacterSet]];
       [self openSelectedPaths: [NSArray arrayWithObject: path] newViewer: YES];
-    }
-  else if ([types containsObject: NSFilenamesPboardType])
-    {
-      NSArray *paths = (NSArray *)[pboard propertyListForType: NSFilenamesPboardType];
-      [self openSelectedPaths: paths newViewer: YES];
     }
 }
 
@@ -2247,26 +2247,34 @@ static GWorkspace *gworkspace = nil;
   NSArray *types = [pboard types];
   NSString *path = nil;
 
-  if ([types containsObject: NSStringPboardType])
+  if ([types containsObject: NSFilenamesPboardType])
+    {
+      path = [[pboard propertyListForType: NSFilenamesPboardType] firstObject];
+    }
+  else if ([types containsObject: NSStringPboardType])
     {
       path = [pboard stringForType: NSStringPboardType];
       path = [path stringByTrimmingCharactersInSet:
 		     [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     }
-  else if ([types containsObject: NSFilenamesPboardType])
-    {
-      path = [[pboard propertyListForType: NSFilenamesPboardType] firstObject];
-    }
 
   if (!path)
     return;
 
-  FSNode *node = [FSNode nodeWithPath: path];
-  if (node && [node isValid]) 
+  if ([userData isEqualToString: @"inspect"]) 
     {
-      FSNode *base = [FSNode nodeWithPath: path_separator()];
-      [vwrsManager selectRepOfNode: node inViewerWithBaseNode: base];
-      [[vwrsManager viewerWithBaseNode: base] activate];
+      [inspector activate];
+      [inspector setCurrentSelection: [NSArray arrayWithObject:path]];
+    }
+  else
+    {
+      FSNode *node = [FSNode nodeWithPath: path];
+      if (node && [node isValid]) 
+        {
+          FSNode *base = [FSNode nodeWithPath: path_separator()];
+          [vwrsManager selectRepOfNode: node inViewerWithBaseNode: base];
+          [[vwrsManager viewerWithBaseNode: base] activate];
+        }
     }
 }
 
