@@ -474,7 +474,11 @@ static unsigned char darkerLUT[256] = {
 
   RELEASE (arp);
 
-  return AUTORELEASE (newIcon);  
+  NSImage *newIcon2 = [[NSImage alloc] initWithData: [newIcon TIFFRepresentation]];
+
+  RELEASE (newIcon);
+
+  return AUTORELEASE (newIcon2);
 }
 
 /*
