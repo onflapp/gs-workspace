@@ -1,8 +1,8 @@
 /* FSNBrowser.m
  *  
- * Copyright (C) 2004-2022 Free Software Foundation, Inc.                                                               
+ * Copyright (C) 2004-2024 Free Software Foundation, Inc.
  *
- * Author: Enrico Sersale <enrico@imago.ro>
+ * Author: Enrico Sersale
  *         Riccardo Mottola <rm@gnu.org>
  * Date: July 2004
  *
@@ -155,7 +155,7 @@
     alphaNumericalLastColumn = -1;
 		
     skipUpdateScroller = NO;
-    lastKeyPressed = 0.;
+    lastKeyPressedTime = 0.0;
     charBuffer = nil;
     simulatingDoubleClick = NO;    
     isLoaded = NO;	
@@ -1356,6 +1356,7 @@
     case NSCarriageReturnCharacter:
       [(FSNBrowserMatrix *)matrix setMouseFlags: [theEvent modifierFlags]];
       [matrix sendDoubleAction];
+      DESTROY(charBuffer);
       return;
   }  
   
@@ -1381,33 +1382,30 @@
 	    }
 	  else
 	    {
-	      if (([theEvent timestamp] - lastKeyPressed < 500.0)
+	      if (([theEvent timestamp] - lastKeyPressedTime < 500.0)
 		  && (alphaNumericalLastColumn == index))
 		{
-		  NSString *transition = [charBuffer stringByAppendingString:
-						[characters substringToIndex: 1]];
-		  RELEASE (charBuffer);
-		  charBuffer = transition;
-		  RETAIN (charBuffer);
+		  NSString *appendBuff = [charBuffer stringByAppendingString:
+                                                [characters substringToIndex: 1]];
+		  ASSIGN(charBuffer, appendBuff);
 		}
 	      else
 		{
-		  RELEASE (charBuffer);
-		  charBuffer = [characters substringToIndex: 1];
-		  RETAIN (charBuffer);
+		  ASSIGN(charBuffer, [characters substringToIndex: 1]);
 		}
 	    }
 		
 	  alphaNumericalLastColumn = index;
-	  lastKeyPressed = [theEvent timestamp];
+	  lastKeyPressedTime = [theEvent timestamp];
 		
-	  if ([column selectCellWithPrefix: charBuffer]) {
-	    [[self window] makeFirstResponder: matrix];
-	    return;
-	  }
+	  if ([column selectCellWithPrefix: charBuffer])
+            {
+              [[self window] makeFirstResponder: matrix];
+              return;
+            }
 	}
 
-      lastKeyPressed = 0.0;			
+      lastKeyPressedTime = 0.0;
     }
 
   [super keyDown: theEvent];
