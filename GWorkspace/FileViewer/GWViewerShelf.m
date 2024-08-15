@@ -1143,12 +1143,16 @@
   isDragTarget = NO;	
   dragLocalIcon = NO;    
 
-  if ((sourceDragMask & NSDragOperationCopy)
+  if (sourceDragMask == NSDragOperationEvery)
+    {
+      //do not check for specific mask if set to "every" explicitly
+    }
+  else if ((sourceDragMask & NSDragOperationCopy)
       || (sourceDragMask & NSDragOperationLink))
     {
       return NSDragOperationNone;
     }
-  
+
   if (pb && [[pb types] containsObject: NSFilenamesPboardType])
     {
       NSArray *sourcePaths = [pb propertyListForType: NSFilenamesPboardType]; 
@@ -1207,7 +1211,10 @@
   
   sourceDragMask = [sender draggingSourceOperationMask];
   
-  if ((sourceDragMask & NSDragOperationCopy)
+  if (sourceDragMask == NSDragOperationEvery) {
+      //do not check for specific mask if set to "every" explicitly
+  }
+  else if ((sourceDragMask & NSDragOperationCopy)
       || (sourceDragMask & NSDragOperationLink)) {
     if (dragIcon) {
       DESTROY (dragIcon);
@@ -1253,7 +1260,11 @@
     return NSDragOperationNone;
   }
   
-  if ((sourceDragMask & NSDragOperationCopy)
+  if (sourceDragMask == NSDragOperationEvery)
+    {
+      //do not check for specific mask if set to "every" explicitly
+    }
+  else if ((sourceDragMask & NSDragOperationCopy)
       || (sourceDragMask & NSDragOperationLink))
     {
       return NSDragOperationNone;
