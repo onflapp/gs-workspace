@@ -116,7 +116,9 @@
 "Invalid char in name" = "Er is een ongeldig karakter in de naam";
 
 
-/* ----------------------- Inspectors strings --------------------------- *\
+/* ----------------------- Inspectors strings --------------------------- */
+
+"Items" = "Items";
 
 /* InspectorsWin.m */
 
@@ -205,7 +207,7 @@
 "Other" = "Andere";
 
 
-/* ----------------------- Processes strings --------------------------- *\
+/* ----------------------- Processes strings --------------------------- */
 
 /* Processes.m */
 
@@ -222,7 +224,7 @@
 "Background" = "Achtergrond";
 
 
-/* ----------------------- Finder strings --------------------------- *\
+/* ----------------------- Finder strings --------------------------- */
 
 /* Finder.m */
 
@@ -233,7 +235,7 @@
 "No arguments!" = "Geen argumenten!";
 
 
-/* ----------------------- Fiend strings --------------------------- *\
+/* ----------------------- Fiend strings --------------------------- */
 
 /* Fiend.m */
 
@@ -247,7 +249,7 @@
 "This object is already present in this layer!" = "Dit object zit al in de laag!"; 
 	
 			
-/* ----------------------- Preferences strings --------------------------- *\
+/* ----------------------- Preferences strings --------------------------- */
 
 /* PreferencesWin.m */
 
@@ -303,6 +305,15 @@
 
 "Title Width" = "Titelbreedte";
 "Icon View" = "Icoon view";
+
+/* OpenWithController */
+"Open With" = "Open With";
+"Type the name or the path of the application" = "Type the name or the path of the application";
+"to use to open the current selection" = "to use to open the current selection";
+
+/* RunExternalController.m */
+"Run" = "Run";
+"Type the command to execute:"="Type the command to execute:";
 
 /* Recycler strings */
 

@@ -99,7 +99,7 @@
 "Logout" = "Déconnexion";
 	
 	
-/* ----------------------- File Operations strings --------------------------- *\
+/* ----------------------- File Operations strings --------------------------- */
 
 /* GWorkspace.m */
 
@@ -161,7 +161,7 @@
 "Invalid char in name" = "Le nom contient un caractère invalide";
 
 
-/* -------------------------Viewers Strings ----------------------------- *\
+/* -------------------------Viewers Strings ----------------------------- */
 
 /* GWViewer.m */
 "free" = "de libre";
@@ -173,7 +173,9 @@
 "Can't open " = "Impossible d'ouvrir ";
 
 
-/* ----------------------- Inspectors strings --------------------------- *\
+/* ----------------------- Inspectors strings --------------------------- */
+
+"Items" = "Éléments";
 
 
 /* Attributes.m */
@@ -246,7 +248,7 @@
 
 
 
-/* ----------------------- Finder strings --------------------------- *\
+/* ----------------------- Finder strings --------------------------- */
 
 /* Finder.m */
 
@@ -322,7 +324,7 @@
 "includes"="est";
 
 
-/* ----------------------- Fiend strings --------------------------- *\
+/* ----------------------- Fiend strings --------------------------- */
 
 /* Fiend.m */
 
@@ -336,7 +338,7 @@
 "This object is already present in this layer!" = "Cet objet est déja présent dans cet espace de travail !";
 	
 			
-/* ----------------------- Preferences strings --------------------------- *\
+/* ----------------------- Preferences strings --------------------------- */
 
 /* PreferencesWin.m */
 
@@ -435,6 +437,11 @@
 "Number of saved paths" = "Nombre de chemins sauvegardés";
 
 /* -------- */
+
+/* OpenWithController */
+"Open With" = "Ouvrir avec";
+"Type the name or the path of the application" = "Tapez le nom ou le chemin de l'application";
+"to use to open the current selection" = "à utiliser pour ouvrir la sélection en cours";
 
 /* RunExternalController.m */
 "Run" = "Exécuter";

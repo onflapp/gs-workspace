@@ -27,38 +27,15 @@
 #define RUN_EXTERNAL_CONTROLLER_H
 
 #import <Foundation/Foundation.h>
+#import "ExecuteController.h"
 
-@class CompletionField;
 @class NSTextField;
 @class NSWindow;
 
-@interface RunExternalController : NSObject 
+@interface RunExternalController : ExecuteController
 {
-  IBOutlet NSWindow *win;
-  IBOutlet NSTextField *titleLabel;
-  IBOutlet NSTextField *secondLabel;
-  IBOutlet NSButton *cancelButt;
-  IBOutlet NSButton *okButt;
-  
-  IBOutlet CompletionField *cfield;
-  unsigned result;  
-  
-  NSArray *pathsArr;
-  NSFileManager *fm;
-  
 }
 
-- (NSString *)checkCommand:(NSString *)comm;
-
-- (void)activate;
-
-- (NSWindow *)win;
-
-- (IBAction)cancelButtAction:(id)sender;
-
-- (IBAction)okButtAction:(id)sender;
-
-- (void)completionFieldDidEndLine:(id)afield;
 
 @end
 

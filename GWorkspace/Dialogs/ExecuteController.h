@@ -1,11 +1,11 @@
-/* Annotations.h
+/* ExecuteController.h
  *  
- * Copyright (C) 2005-2024 Free Software Foundation, Inc.
+ * Copyright (C) 2003-2024 Free Software Foundation, Inc.
  *
  * Authors: Enrico Sersale
  *          Riccardo Mottola
  *
- * Date: February 2005
+ * Date: July 2024
  *
  * This file is part of the GNUstep GWorkspace application
  *
@@ -24,41 +24,46 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111 USA.
  */
 
+#ifndef EXECUTE_CONTROLLER_H
+#define EXECUTE_CONTROLLER_H
+
 
 #import <Foundation/Foundation.h>
 
+@class CompletionField;
+@class NSBox;
 @class NSWindow;
-@class FSNode;
-@class NSView;
-@class IconView;
-@class NSTextView;
 
-@interface Annotations: NSObject
+@interface ExecuteController : NSObject 
 {
-  IBOutlet NSWindow *win;
-  IBOutlet NSBox *mainBox;
-  IBOutlet NSBox *topBox;
-  IBOutlet IconView *iconView;
-  IBOutlet NSTextField *titleField;
-  IBOutlet NSBox *toolsBox;
-  IBOutlet NSTextView *textView;
-  IBOutlet NSButton *okButt;
+  IBOutlet id win;
+  IBOutlet NSTextField *titleLabel;
+  IBOutlet id firstLabel;
+  IBOutlet id secondLabel;
+  IBOutlet id cancelButt;
+  IBOutlet id okButt;
 
-  NSString *currentPath;
-  NSView *noContsView; 
-  id inspector;
-  id desktopApp;
+  IBOutlet CompletionField *cfield;
+  NSInteger result;
+
+  NSArray *pathsArr;
+  NSFileManager *fm;
 }
 
-- (instancetype)initForInspector:(id)insp;
+- (instancetype)initWithNibName:(NSString *)nibName NS_DESIGNATED_INITIALIZER;
 
-- (NSView *)inspView;
+- (NSString *)checkCommand:(NSString *)comm;
 
-- (NSString *)winname;
+- (void)activate;
 
-- (void)activateForPaths:(NSArray *)paths;
+- (NSWindow *)win;
 
-- (IBAction)setAnnotations:(id)sender;
+- (IBAction)cancelButtAction:(id)sender;
+
+- (IBAction)okButtAction:(id)sender;
+
+- (void)completionFieldDidEndLine:(id)afield;
 
 @end
 
+#endif

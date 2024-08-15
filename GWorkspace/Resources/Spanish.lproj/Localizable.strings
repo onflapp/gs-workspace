@@ -172,13 +172,14 @@
 /* GWViewersManager.m */
 
 "Are you sure you want to open" = "¿Seguro que desea abrir";
-"items?" = "articulos?";
+"items?" = "elementos?";
 "error" = "error";
 "Can't open " = "No se puede abrir ";
 
 
 /* ----------------------- Inspectors strings --------------------------- */
 
+"Items" = "Elementos";
 
 /* Attributes.m */
 
@@ -410,6 +411,11 @@
 "Number of saved paths" = "Número de rutas guardadas";
 
 /* -------- */
+
+/* OpenWithController */
+"Open With" = "Abrir con";
+"Type the name or the path of the application" = "Type the name or the path of the application";
+"to use to open the current selection" = "to use to open the current selection";
 
 /* RunExternalController.m */
 "Run" = "Ejecutar";

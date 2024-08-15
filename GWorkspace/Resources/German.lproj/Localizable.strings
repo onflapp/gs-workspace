@@ -1,6 +1,6 @@
 ﻿/* GWorkspace German strings, updated by Ingolf Jandt 2006 */
 
-/* ----------------------- menu strings --------------------------- *\
+/* ----------------------- menu strings --------------------------- */
 /* main.m */
 
 "Info" = "Info";
@@ -11,6 +11,7 @@
 
 "File" = "Datei";
 	"Open" = "Öffnen";
+        "Open With..." = "Öffnen mit";
 	"Open as Folder" = "Als Ordner öffnen";
 	"New Folder" = "Neuer Ordner";
 	"New File" = "Neue Datei";
@@ -149,7 +150,7 @@
 "Destroying" = "Vernichte";
 "File Operation Completed" = "Dateioperation vollständig";
 "Backgrounder connection died!" = "Backgrounder-Verbindung gestorben!";
-"Some items have the same name;\ndo you want to sobstitute them?" = "Einige Gegenstände haben den selben Namen;\nwollen Sie diese ersetzen?";
+"Some items have the same name;\ndo you want to sobstitute them?" = "Einige Elemente haben den selben Namen;\nwollen Sie diese ersetzen?";
 "File Operation Error!" = "Fehler bei Dateioperation!";
 
 
@@ -171,8 +172,9 @@ which ends in "kann <the file> nicht umbenennen"
 "Invalid char in name" = "Ungültiges Zeichen im Namen";
 
 
-/* ----------------------- Inspectors strings --------------------------- *\
+/* ----------------------- Inspectors strings --------------------------- */
 
+"Items" = "Elemente";
 
 /* Attributes.m */
 
@@ -234,7 +236,7 @@ which ends in "kann <the file> nicht umbenennen"
 
 
 
-/* ----------------------- Finder strings --------------------------- *\
+/* ----------------------- Finder strings --------------------------- */
 
 /* Finder.m */
 
@@ -245,7 +247,7 @@ which ends in "kann <the file> nicht umbenennen"
 "Current selection" = "Aktuelle Auswahl";
 "Add" = "Hinzufügen ";
 "Remove" = "Entfernen";
-"Search for items whose:" = "Suche für Objekte welche:";
+"Search for items whose:" = "Suche für Elemente welche:";
 "Specific places" = "Bestimmte Orte";
 "Recursive" = "Rekursiv";
 "Search" = "Suche";
@@ -308,7 +310,7 @@ which ends in "kann <the file> nicht umbenennen"
 "includes"="enthält";
 
 
-/* ----------------------- Fiend strings --------------------------- *\
+/* ----------------------- Fiend strings --------------------------- */
 
 /* Fiend.m */
 
@@ -322,7 +324,7 @@ which ends in "kann <the file> nicht umbenennen"
 "This object is already present in this layer!" = "Dieses Objekt existiert bereits in dieser Schicht!";
 	
 			
-/* ----------------------- Preferences strings --------------------------- *\
+/* ----------------------- Preferences strings --------------------------- */
 
 /* PreferencesWin.m */
 
@@ -411,6 +413,11 @@ which ends in "kann <the file> nicht umbenennen"
 
 
 /* -------- */
+
+/* OpenWithController */
+"Open With" = "Öffnen mit";
+"Type the name or the path of the application" = "Geben Sie den Namen oder den Pfad der Anwendung ein,";
+"to use to open the current selection" = "";
 
 /* RunExternalController.m */
 "Run" = "Ausführen";
