@@ -79,9 +79,9 @@ typedef enum FSNSelectionMask {
 
 - (int)iconSize;
 
-- (void)setIconPosition:(unsigned int)ipos;
+- (void)setIconPosition:(NSCellImagePosition)ipos;
 
-- (int)iconPosition;
+- (NSCellImagePosition)iconPosition;
 
 - (NSRect)labelRect;
 
@@ -363,8 +363,6 @@ typedef enum FSNSelectionMask {
   NSMutableDictionary *tumbsCache;
   NSString *thumbnailDir;
   BOOL usesThumbnails;  
-  
-  BOOL oldresize;  
 
   NSImage *multipleSelIcon;
   NSImage *openFolderIcon;
