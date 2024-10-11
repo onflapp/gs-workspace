@@ -15,6 +15,7 @@
 	    "cancelButtAction:",
 	    "completionFieldDidEndLine:",
 	    "initForController:",
+	    "browseButtAction:",
 	    "okButtAction:"
 	);
 	Super = NSObject;
@@ -27,7 +28,8 @@
     RunExternalController = {
 	Actions = (
 	    "cancelButtAction:",
-	    "okButtAction:"
+	    "okButtAction:",
+	    "browseButtAction:"
 	);
 	Outlets = (
 	    win,

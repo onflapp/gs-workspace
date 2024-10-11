@@ -45,7 +45,8 @@
 - (instancetype)initWithNibName:(NSString *)nibName
 {
   self = [super init];
-  
+
+ 
   if (self)
     {
       if ([NSBundle loadNibNamed: nibName owner: self] == NO)
@@ -58,6 +59,13 @@
         {
           [okButt setTitle:NSLocalizedString(@"OK", @"")];
           [cancelButt setTitle:NSLocalizedString(@"Cancel", @"")];
+
+          fm = [NSFileManager defaultManager];
+          NSString *path = [[[NSProcessInfo processInfo] environment] objectForKey: @"PATH"];
+          if (path)
+            {
+              pathsArr = [[path componentsSeparatedByString: @":"] retain];
+            }
         }
     }
 
@@ -107,16 +115,11 @@
           for (i = 0; i < [pathsArr count]; i++)
             {
               NSString *basePath = [pathsArr objectAtIndex: i];
-              NSArray *contents = [fm directoryContentsAtPath: basePath];
+              NSString *fullPath = [basePath stringByAppendingPathComponent: comm];
 
-              if (contents && [contents containsObject: comm])
+              if ([fm isExecutableFileAtPath: fullPath])
                 {
-                  NSString *fullPath = [basePath stringByAppendingPathComponent: comm];
-
-                  if ([fm isExecutableFileAtPath: fullPath])
-                    {
-                      return fullPath;
-                    }
+                  return fullPath;
                 }
             }
         }

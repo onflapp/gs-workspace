@@ -90,6 +90,17 @@
     }
 }
 
+- (IBAction)browseButtAction:(id)sender
+{
+  NSOpenPanel *panel = [NSOpenPanel openPanel]; 
+  [panel setShowsHiddenFiles: YES];
+  if ([panel runModal])
+    {
+      NSString *f = [[panel filenames] firstObject];
+      [cfield setString: f];
+    }
+}
+
 - (void)completionFieldDidEndLine:(id)afield
 {
   [super completionFieldDidEndLine:afield];

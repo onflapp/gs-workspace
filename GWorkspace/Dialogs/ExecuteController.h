@@ -62,6 +62,8 @@
 
 - (IBAction)okButtAction:(id)sender;
 
+- (IBAction)browseButtAction:(id)sender;
+
 - (void)completionFieldDidEndLine:(id)afield;
 
 @end
