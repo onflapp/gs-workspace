@@ -20,7 +20,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111 USA.
+ * Foundation, Inc., 31 Milk Street #960789 Boston, MA 02196 USA.
  */
 
 #import <Foundation/Foundation.h>
@@ -232,7 +232,7 @@
 
 - (void)addLayer
 {
-  SympleDialog *dialog;
+  GWDialog *dialog;
   NSString *layerName;
   NSMutableArray *leaves;
   int result;
@@ -242,9 +242,9 @@
       return;
     }
 
-  dialog = [[SympleDialog alloc] initWithTitle: NSLocalizedString(@"New Layer", @"") 
-                                      editText: @""
-                                   switchTitle: nil];
+  dialog = [[GWDialog alloc] initWithTitle: NSLocalizedString(@"New Layer", @"") 
+                                  editText: @""
+                               switchTitle: nil];
   [dialog center];
   [dialog makeKeyWindow];
   [dialog orderFrontRegardless];
@@ -345,7 +345,7 @@
 
 - (void)renameCurrentLayer
 {
-  SympleDialog *dialog;
+  GWDialog *dialog;
   NSString *layerName;
   NSMutableArray *leaves;
   int result;
@@ -355,9 +355,9 @@
       return;
     }
 
-  dialog = [[SympleDialog alloc] initWithTitle: NSLocalizedString(@"Rename Layer", @"")
-                                      editText: currentName
-                                   switchTitle: nil];
+  dialog = [[GWDialog alloc] initWithTitle: NSLocalizedString(@"Rename Layer", @"")
+                                  editText: currentName
+                               switchTitle: nil];
   [dialog center];
   [dialog makeKeyWindow];
   [dialog orderFrontRegardless];

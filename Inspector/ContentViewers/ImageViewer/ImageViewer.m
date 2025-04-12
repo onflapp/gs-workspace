@@ -20,7 +20,7 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111 USA.
+ * Foundation, Inc., 31 Milk Street #960789 Boston, MA 02196 USA.
  */
 
 #import <AppKit/AppKit.h>
@@ -60,7 +60,7 @@
     [imview setImageFrameStyle: NSImageFrameGrayBezel];
     [imview setImageAlignment: NSImageAlignCenter];
     [imview setImageScaling: NSScaleNone];
-    [self addSubview: imview]; 
+    [self addSubview: imview];
     
     r.origin.x = 10;
     r.origin.y -= 20;
@@ -83,7 +83,7 @@
     [heightLabel setSelectable: NO];
     [heightLabel setAlignment: NSRightTextAlignment];
     [heightLabel setStringValue: @""];
-    [self addSubview: heightLabel]; 
+    [self addSubview: heightLabel];
     RELEASE (heightLabel);
 
     r.origin.x = 2;
@@ -110,28 +110,27 @@
     r.origin.y = 10;
     r.size.width = 115;
     r.size.height = 25;
-	  editButt = [[NSButton alloc] initWithFrame: r];
-	  [editButt setButtonType: NSMomentaryLight];
+    editButt = [[NSButton alloc] initWithFrame: r];
+    [editButt setButtonType: NSMomentaryLight];
     [editButt setImage: [NSImage imageNamed: @"common_ret.tiff"]];
     [editButt setImagePosition: NSImageRight];
-	  [editButt setTitle: NSLocalizedString(@"Edit", @"")];
-	  [editButt setTarget: self];
-	  [editButt setAction: @selector(editFile:)];	
-    [editButt setEnabled: NO];		
-		[self addSubview: editButt]; 
+    [editButt setTitle: NSLocalizedString(@"Edit", @"")];
+    [editButt setTarget: self];
+    [editButt setAction: @selector(editFile:)];
+    [editButt setEnabled: NO];
+    [self addSubview: editButt];
     RELEASE (editButt);
 
     inspector = insp;
-    fm = [NSFileManager defaultManager];
     ws = [NSWorkspace sharedWorkspace];
-        
+
     valid = YES;
-    
+
     resizer = nil;
     imagePath = nil;
     editPath = nil;
     image = nil;
-    
+
     [self setContextHelp];
   }
 	
@@ -200,36 +199,45 @@
 
   imgok = NO;
   imgdata = nil;
+
+  // whether we have or not read an image, we declare the content is ready
+  // at most we won't display it, otherwise other data does not update
+  if ([self superview])
+    [inspector contentsReadyAt: imagePath];
+
   if (nil != imginfo)
     {
       imgdata = [imginfo objectForKey:@"imgdata"];
+
+      // since resizing is async, we check if we still need the generated image
       if ([imagePath isEqualToString:[imginfo objectForKey: @"imgpath"]] == NO)
 	{
 	  NSLog(@"ImageViewer: trying to display inconsistent image");
 	  return;
 	}
     }
+  else
+    {
+      NSLog(@"imageReady without imginfo");
+    }
 
   if (imgdata)
     {
-      if ([self superview])
-        [inspector contentsReadyAt: imagePath];
-      
       DESTROY (image);
       image = [[NSImage alloc] initWithData: imgdata];
 
-      imgok = YES;
       if (image)
         {
           float width = [[imginfo objectForKey: @"width"] floatValue];
           float height = [[imginfo objectForKey: @"height"] floatValue];
           NSString *str;
 
+	  imgok = YES;
           if (valid == NO)
             {
               valid = YES;
               [errLabel removeFromSuperview];
-              [self addSubview: imview]; 
+              [self addSubview: imview];
             }
 
           [imview setImage: image];
@@ -247,10 +255,14 @@
           [[self window] makeFirstResponder: editButt];
 	  DESTROY (imagePath);
         }
+      else
+	{
+	  NSLog(@"no image returned");
+	}
     }
 
-  if (imgok == NO) {
-    if (valid == YES) {
+  if (imgok == NO)
+    {
       valid = NO;
       [imview removeFromSuperview];
       [self addSubview: errLabel];
@@ -258,8 +270,7 @@
       [heightLabel setStringValue: @""];
       [editButt setEnabled: NO];
     }
-  }
-  
+
   [progView stop];
   [progView removeFromSuperview];  
 }
@@ -284,7 +295,7 @@
   NSDictionary *attributes;
   NSString *defApp, *fileType, *extension;
 
-  attributes = [fm fileAttributesAtPath: path traverseLink: YES];
+  attributes = [[NSFileManager defaultManager] fileAttributesAtPath: path traverseLink: YES];
   if ([attributes objectForKey: NSFileType] == NSFileTypeDirectory)
     {
       return NO;
@@ -292,12 +303,6 @@
 		
   [ws getInfoForFile: path application: &defApp type: &fileType];
   extension = [path pathExtension];
-	
-  if (([fileType isEqual: NSPlainFileType] == NO)
-      && ([fileType isEqual: NSShellCommandFileType] == NO))
-    {
-      return NO;
-    }
 
   if ([[NSImage imageFileTypes] containsObject: [extension lowercaseString]])
     {
@@ -361,7 +366,7 @@
   
     helpPath = [resPath stringByAppendingPathComponent: helpPath];
   
-    if ([fm fileExistsAtPath: helpPath]) {
+    if ([[NSFileManager defaultManager] fileExistsAtPath: helpPath]) {
       NSAttributedString *help = [[NSAttributedString alloc] initWithPath: helpPath
                                                        documentAttributes: NULL];
       if (help) {

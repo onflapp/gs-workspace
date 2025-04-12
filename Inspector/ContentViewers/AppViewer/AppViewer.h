@@ -19,7 +19,7 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111 USA.
+ * Foundation, Inc., 31 Milk Street #960789 Boston, MA 02196 USA.
  */
 
 #ifndef APPVIEWER_H
@@ -43,13 +43,13 @@
 @interface AppViewer : NSView <ContentViewersProtocol>
 {
   NSString *currentPath;
-	BOOL valid;
+  BOOL valid;
 
-	NSMatrix *matrix;
-	NSScrollView *scroll;
+  NSMatrix *matrix;
+  NSScrollView *scroll;
   NSTextField *errLabel;
-	NSTextField *explField;
-  
+  NSTextField *explField;
+
   id <ContentInspectorProtocol>inspector;
   NSWorkspace *ws;
 }

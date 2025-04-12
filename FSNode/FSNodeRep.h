@@ -1,8 +1,9 @@
 /* FSNodeRep.h
  *  
- * Copyright (C) 2004-2016 Free Software Foundation, Inc.
+ * Copyright (C) 2004-2024 Free Software Foundation, Inc.
  *
- * Author: Enrico Sersale <enrico@imago.ro>
+ * Authors: Enrico Sersale
+ *          Riccardo Mottola
  * Date: March 2004
  *
  * This file is part of the GNUstep FSNode framework
@@ -19,7 +20,7 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111 USA.
+ * Foundation, Inc., 31 Milk Street #960789 Boston, MA 02196 USA.
  */
 
 #ifndef FSNODE_REP_H
@@ -356,8 +357,6 @@ typedef enum FSNSelectionMask {
   NSMutableSet *reservedNames;
   NSMutableSet *volumes;
   NSString *rootPath;
-
-  unsigned systype;
     
   NSMutableDictionary *iconsCache;
   NSMutableDictionary *tumbsCache;
@@ -374,7 +373,6 @@ typedef enum FSNSelectionMask {
   float labelWFactor;
     
   NSFileManager *fm;
-  id ws;    
 }
 
 + (FSNodeRep *)sharedInstance;
@@ -442,8 +440,6 @@ typedef enum FSNSelectionMask {
 - (NSSet *)reservedNames;
 
 - (BOOL)isReservedName:(NSString *)name;
-
-- (unsigned)systemType;
 
 - (void)setUseThumbnails:(BOOL)value;
 

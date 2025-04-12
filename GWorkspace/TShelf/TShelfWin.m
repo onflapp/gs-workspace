@@ -19,7 +19,7 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111 USA.
+ * Foundation, Inc., 31 Milk Street #960789 Boston, MA 02196 USA.
  */
 
 #import <Foundation/Foundation.h>
@@ -275,7 +275,7 @@
 
 - (void)addTab
 {
-  SympleDialog *dialog;
+  GWDialog *dialog;
   NSString *tabName;
   int itype;
   NSArray *items;
@@ -290,9 +290,9 @@
     return;
   }
 
-  dialog = [[SympleDialog alloc] initWithTitle: NSLocalizedString(@"Add Tab", @"") 
-				      editText: @""
-				   switchTitle: NSLocalizedString(@"pasteboard tab", @"")];
+  dialog = [[GWDialog alloc] initWithTitle: NSLocalizedString(@"Add Tab", @"") 
+                                  editText: @""
+                               switchTitle: NSLocalizedString(@"pasteboard tab", @"")];
   [dialog center];
   [dialog makeKeyWindow];
   [dialog orderFrontRegardless];
@@ -333,7 +333,7 @@
       return;
     }
   
-  itype = ([dialog switchButtState] == NSOnState) ? DATA_TAB : FILES_TAB;
+  itype = ([dialog switchButtonState] == NSOnState) ? DATA_TAB : FILES_TAB;
   
   item = [tView selectedTabItem];
   index = [tView indexOfItem: item];
@@ -397,7 +397,7 @@
 
 - (void)renameTab
 {
-  SympleDialog *dialog;
+  GWDialog *dialog;
   NSString *oldName;
   NSString *tabName;
   NSArray *items;
@@ -424,9 +424,9 @@
       return;
     }
   
-  dialog = [[SympleDialog alloc] initWithTitle: NSLocalizedString(@"Rename Tab", @"") 
-                                      editText: oldName
-                                   switchTitle: nil];
+  dialog = [[GWDialog alloc] initWithTitle: NSLocalizedString(@"Rename Tab", @"") 
+                                  editText: oldName
+                               switchTitle: nil];
   
   [dialog center];
   [dialog makeKeyWindow];
