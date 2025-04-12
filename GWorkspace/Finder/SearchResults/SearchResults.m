@@ -19,7 +19,7 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111 USA.
+ * Foundation, Inc., 31 Milk Street #960789 Boston, MA 02196 USA.
  */
 
 #include <math.h>
@@ -610,14 +610,14 @@ static NSString *lsfname = @"LiveSearch.lsf";
 
 - (void)createLiveSearchFolderAtPath:(NSString *)path
 {
-  SympleDialog *dialog;
+  GWDialog *dialog;
   NSString *folderName;
   NSArray *contents;
   int result;
 
-  dialog = [[SympleDialog alloc] initWithTitle: NSLocalizedString(@"New Live Search", @"") 
-                                      editText: lsfname
-                                   switchTitle: nil];
+  dialog = [[GWDialog alloc] initWithTitle: NSLocalizedString(@"New Live Search", @"") 
+                                  editText: lsfname
+                               switchTitle: nil];
   AUTORELEASE (dialog);
   [dialog center];
   [dialog makeKeyWindow];

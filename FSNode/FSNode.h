@@ -1,8 +1,9 @@
 /* FSNode.h
  *  
- * Copyright (C) 2004-2012 Free Software Foundation, Inc.
+ * Copyright (C) 2004-2025 Free Software Foundation, Inc.
  *
- * Author: Enrico Sersale <enrico@imago.ro>
+ * Author: Enrico Sersale
+ *         Riccardo Mottola
  * Date: March 2004
  *
  * This file is part of the GNUstep FSNode framework
@@ -19,7 +20,7 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111 USA.
+ * Foundation, Inc., 31 Milk Street #960789 Boston, MA 02196 USA.
  */
 
 #ifndef FSNODE_H
@@ -36,6 +37,7 @@
   FSNode *parent;
   NSString *path;
   NSString *relativePath;
+  NSString *lastPathComponent;
   NSString *name;
   NSDictionary *attributes;
   NSString *fileType;
@@ -139,6 +141,8 @@
 - (NSString *)path;
 
 - (NSString *)relativePath;
+
+- (NSString *)lastPathComponent;
 
 - (NSString *)name;
 

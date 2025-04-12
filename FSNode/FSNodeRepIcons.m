@@ -20,7 +20,7 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111 USA.
+ * Foundation, Inc., 31 Milk Street #960789 Boston, MA 02196 USA.
  */
 
 #include <math.h>
@@ -167,25 +167,29 @@ static unsigned char darkerLUT[256] = {
 	  if (icon == nil)
 	    {
               if (baseIcon == nil)
-                baseIcon = [ws iconForFile: nodepath];
+                baseIcon = [[NSWorkspace sharedWorkspace] iconForFile: nodepath];
 
               if (baseIcon == nil)
                 {
-                  NSLog(@"no WS icon for %@", nodepath);
+                  NSLog(@"no icon in cache for key %@ and no WS icon for %@", key, nodepath);
                 }
-	      if ([node isLink])
-		{
-		  NSImage *linkIcon;
 
-		  linkIcon = [NSImage imageNamed:@"common_linkCursor"];
-		  baseIcon = [baseIcon copy];
-		  [baseIcon lockFocus];
-		  [linkIcon compositeToPoint:NSMakePoint(0,0) operation:NSCompositeSourceOver];
-		  [baseIcon unlockFocus];
-		  [baseIcon autorelease];
-		}
+              if (baseIcon != nil)
+                {
+                  if ([node isLink])
+                    {
+                      NSImage *linkIcon;
+
+                      linkIcon = [NSImage imageNamed:@"common_linkCursor"];
+                      baseIcon = [baseIcon copy];
+                      [baseIcon lockFocus];
+                      [linkIcon compositeToPoint:NSMakePoint(0,0) operation:NSCompositeSourceOver];
+                      [baseIcon unlockFocus];
+                      [baseIcon autorelease];
+                    }
   
-	      icon = [self cachedIconOfSize: size forKey: key addBaseIcon: baseIcon];
+                  icon = [self cachedIconOfSize: size forKey: key addBaseIcon: baseIcon];
+                }
 	    }
 	}
     }  
@@ -249,7 +253,7 @@ static unsigned char darkerLUT[256] = {
               // we look up the cache, but only in the full size to composite later
               baseIcon = [self cachedIconOfSize: 48 forKey: key];
               if (baseIcon == nil)
-                baseIcon = [ws iconForFile: nodepath];
+                baseIcon = [[NSWorkspace sharedWorkspace] iconForFile: nodepath];
 
 	      if ([node isLink])
 		{

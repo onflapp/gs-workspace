@@ -1,6 +1,6 @@
 /* Dialogs.h
  *  
- * Copyright (C) 2003 Free Software Foundation, Inc.
+ * Copyright (C) 2003-2025 Free Software Foundation, Inc.
  *
  * Author: Enrico Sersale <enrico@imago.ro>
  * Date: August 2001
@@ -19,7 +19,7 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111 USA.
+ * Foundation, Inc., 31 Milk Street #960789 Boston, MA 02196 USA.
  */
 
 
@@ -33,34 +33,34 @@
 @class NSTextField;
 @class NSButton;
 
-@interface SympleDialogView : NSView
+@interface GWDialogView : NSView
 {
   BOOL useSwitch;
 }
 
-- (id)initWithFrame:(NSRect)frameRect useSwitch:(BOOL)swtch;
+- (id)initWithFrame:(NSRect)frameRect useSwitch:(BOOL)aBool;
 
 @end
 
-@interface SympleDialog : NSWindow
+@interface GWDialog : NSWindow
 {
-	SympleDialogView *dialogView;
-	NSTextField *titlefield, *editfield;	
+  GWDialogView *dialogView;
+  NSTextField *titleField, *editField;
   NSButton *switchButt;
-	NSButton *cancelbutt, *okbutt;	
+  NSButton *cancelButt, *okButt;
   BOOL useSwitch;
-	int result;
+  NSModalResponse result;
 }
 
 - (id)initWithTitle:(NSString *)title 
-           editText:(NSString *)etext
-        switchTitle:(NSString *)swtitle;
+           editText:(NSString *)eText
+        switchTitle:(NSString *)swTitle;
 
-- (int)runModal;
+- (NSModalResponse)runModal;
 
 - (NSString *)getEditFieldText;
 
-- (int)switchButtState;
+- (NSControlStateValue)switchButtonState;
 
 - (void)buttonAction:(id)sender;
 

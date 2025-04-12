@@ -20,7 +20,7 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111 USA.
+ * Foundation, Inc., 31 Milk Street #960789 Boston, MA 02196 USA.
  */
 
 #include "config.h"
@@ -1312,15 +1312,16 @@ static GWorkspace *gworkspace = nil;
   NSString *type = nil;
   BOOL success;
   NSURL *aURL;
-  
+
   aURL = nil;
   [ws getInfoForFile: fullPath application: &appName type: &type];
-  
-  if (appName == nil) {
-    appName = defEditor;
-  }
 
-  if (type == NSPlainFileType)
+  if (type == NSDirectoryFileType)
+    {
+      [self newViewerAtPath: fullPath];
+      return YES;
+    }
+  else if (type == NSPlainFileType)
     {
       if ([[fullPath pathExtension] isEqualToString: @"webloc"])
 	{
@@ -1359,22 +1360,25 @@ static GWorkspace *gworkspace = nil;
            openFile:(NSString *)filename
 {
   BOOL isDir;
-  
+
   if ([filename isAbsolutePath] 
                     && [fm fileExistsAtPath: filename isDirectory: &isDir]) {
+    NSString *type = nil;
+    NSString *appName;
+
+    [ws getInfoForFile: filename application: &appName type: &type];
     if (isDir) {
       if ([[filename pathExtension] isEqual: @"lsf"]) {
         return [finder openLiveSearchFolderAtPath: filename];
-      } else {
+      } else if (type == NSDirectoryFileType) {
         [self newViewerAtPath: filename];
         return YES;
       }
-    } else {
-      [self selectFile: filename 
-        inFileViewerRootedAtPath: [filename stringByDeletingLastPathComponent]];
-      [self openFile: filename];
-      return YES;
     }
+
+    // it is a direcotry or a bundle, which is a NSFilePlainType
+    [self openFile: filename];
+    return YES;
   } 
 
   return NO;

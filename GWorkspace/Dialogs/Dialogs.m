@@ -1,6 +1,6 @@
 /* Dialogs.m
  *  
- * Copyright (C) 2003-2010 Free Software Foundation, Inc.
+ * Copyright (C) 2003-2025 Free Software Foundation, Inc.
  *
  * Author: Enrico Sersale <enrico@imago.ro>
  * Date: August 2001
@@ -19,7 +19,7 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111 USA.
+ * Foundation, Inc., 31 Milk Street #960789 Boston, MA 02196 USA.
  */
 
 #import <Foundation/Foundation.h>
@@ -30,16 +30,17 @@
 #import "Dialogs.h"
 
 
-@implementation SympleDialogView
+@implementation GWDialogView
 
-- (id)initWithFrame:(NSRect)frameRect useSwitch:(BOOL)swtch
+- (id)initWithFrame:(NSRect)frameRect useSwitch:(BOOL)aBool
 {
   self = [super initWithFrame: frameRect];
 
-  if (self) {
-    useSwitch = swtch;
-  }
-  
+  if (self)
+    {
+      useSwitch = aBool;
+    }
+
   return self;
 }
 
@@ -58,7 +59,7 @@
 
 @end
 
-@implementation SympleDialog
+@implementation GWDialog
 
 - (void)dealloc
 {
@@ -66,77 +67,79 @@
 }
 
 - (id)initWithTitle:(NSString *)title 
-           editText:(NSString *)etext
-        switchTitle:(NSString *)swtitle
+           editText:(NSString *)eText
+        switchTitle:(NSString *)swTitle
 {
-  NSRect r = swtitle ? NSMakeRect(0, 0, 240, 160) : NSMakeRect(0, 0, 240, 120);
+  NSRect r = swTitle ? NSMakeRect(0, 0, 240, 160) : NSMakeRect(0, 0, 240, 120);
   
-	self = [super initWithContentRect: r
-					                styleMask: NSTitledWindowMask 
+  self = [super initWithContentRect: r
+                          styleMask: NSTitledWindowMask 
                             backing: NSBackingStoreRetained 
                               defer: NO];
-  if(self) {
-    NSFont *font;
-    
-    useSwitch = swtitle ? YES : NO;
-    
-  	dialogView = [[SympleDialogView alloc] initWithFrame: [self frame] 
-                                               useSwitch: useSwitch];
-    AUTORELEASE (dialogView);
+  if(self)
+    {
+      NSFont *font;
 
-    font = [NSFont systemFontOfSize: 18];
+      useSwitch = swTitle ? YES : NO;
 
-    r = useSwitch ? NSMakeRect(10, 125, 200, 20) : NSMakeRect(10, 95, 200, 20);
-		titlefield = [[NSTextField alloc] initWithFrame: r];
-		[titlefield setBackgroundColor: [NSColor windowBackgroundColor]];
-		[titlefield setBezeled: NO];
-		[titlefield setEditable: NO];
-		[titlefield setSelectable: NO];
-		[titlefield setFont: font];
-		[titlefield setStringValue: title];
-		[dialogView addSubview: titlefield]; 
-    RELEASE (titlefield);
+      dialogView = [[GWDialogView alloc] initWithFrame: [self frame] 
+                                             useSwitch: useSwitch];
+      AUTORELEASE (dialogView);
 
-    r = useSwitch ? NSMakeRect(30, 86, 180, 22) : NSMakeRect(30, 56, 180, 22);
-		editfield = [[NSTextField alloc] initWithFrame: r];
-		[editfield setStringValue: etext];
-		[dialogView addSubview: editfield];
-	  RELEASE (editfield);
+      font = [NSFont systemFontOfSize: 18];
 
-    if (useSwitch) {
-	    switchButt = [[NSButton alloc] initWithFrame: NSMakeRect(30, 62, 180, 16)];
-	    [switchButt setButtonType: NSSwitchButton];
-	    [switchButt setTitle: swtitle];
-		  [dialogView addSubview: switchButt]; 
-	    RELEASE (switchButt);
+      r = useSwitch ? NSMakeRect(10, 125, 200, 20) : NSMakeRect(10, 95, 200, 20);
+      titleField = [[NSTextField alloc] initWithFrame: r];
+      [titleField setBackgroundColor: [NSColor windowBackgroundColor]];
+      [titleField setBezeled: NO];
+      [titleField setEditable: NO];
+      [titleField setSelectable: NO];
+      [titleField setFont: font];
+      [titleField setStringValue: title];
+      [dialogView addSubview: titleField];
+      RELEASE (titleField);
+
+      r = useSwitch ? NSMakeRect(30, 86, 180, 22) : NSMakeRect(30, 56, 180, 22);
+      editField = [[NSTextField alloc] initWithFrame: r];
+      [editField setStringValue: eText];
+      [dialogView addSubview: editField];
+      RELEASE (editField);
+
+      if (useSwitch)
+        {
+          switchButt = [[NSButton alloc] initWithFrame: NSMakeRect(30, 62, 180, 16)];
+          [switchButt setButtonType: NSSwitchButton];
+          [switchButt setTitle: swTitle];
+          [dialogView addSubview: switchButt];
+          RELEASE (switchButt);
+        }
+
+      cancelButt = [[NSButton alloc] initWithFrame: NSMakeRect(100, 10, 60, 25)];
+      [cancelButt setButtonType: NSMomentaryLight];
+      [cancelButt setTitle: NSLocalizedString(@"Cancel", @"")];
+      [cancelButt setTarget: self];
+      [cancelButt setAction: @selector(buttonAction:)];
+      [dialogView addSubview: cancelButt];
+      RELEASE (cancelButt);
+
+      okButt = [[NSButton alloc] initWithFrame: NSMakeRect(170, 10, 60, 25)];
+      [okButt setButtonType: NSMomentaryLight];
+      [okButt setTitle: NSLocalizedString(@"OK", @"")];
+      [okButt setTarget: self];
+      [okButt setAction: @selector(buttonAction:)];
+      [dialogView addSubview: okButt];
+      RELEASE (okButt);
+
+      [self setContentView: dialogView];
+      [self setTitle: @""];
+
+      [self setInitialFirstResponder: editField];
     }
-
-	  cancelbutt = [[NSButton alloc] initWithFrame: NSMakeRect(100, 10, 60, 25)];
-	  [cancelbutt setButtonType: NSMomentaryLight];
-	  [cancelbutt setTitle: NSLocalizedString(@"Cancel", @"")];
-	  [cancelbutt setTarget: self];
-	  [cancelbutt setAction: @selector(buttonAction:)];		
-		[dialogView addSubview: cancelbutt]; 
-	  RELEASE (cancelbutt);
-
-	  okbutt = [[NSButton alloc] initWithFrame: NSMakeRect(170, 10, 60, 25)];
-	  [okbutt setButtonType: NSMomentaryLight];
-	  [okbutt setTitle: NSLocalizedString(@"OK", @"")];
-	  [okbutt setTarget: self];
-	  [okbutt setAction: @selector(buttonAction:)];		
-		[dialogView addSubview: okbutt]; 
-    RELEASE (okbutt);	
-
-		[self setContentView: dialogView];
-		[self setTitle: @""];
-
-    [self setInitialFirstResponder: editfield];
-	}
-
-	return self;
+  
+  return self;
 }
 
-- (int)runModal
+- (NSModalResponse)runModal
 {
   [[NSApplication sharedApplication] runModalForWindow: self];
   return result;
@@ -144,24 +147,28 @@
 
 - (NSString *)getEditFieldText
 {
-	return [editfield stringValue];
+  return [editField stringValue];
 }
 
-- (int)switchButtState
+- (NSControlStateValue)switchButtonState
 {
-  if (useSwitch) {
-    return [switchButt state];
-  }
-  return 0;
+  if (useSwitch)
+    {
+      return [switchButt state];
+    }
+  return NSOffState;
 }
 
 - (void)buttonAction:(id)sender
 {
-	if (sender == okbutt) {
-    result = NSAlertDefaultReturn;
-  } else {
+  if (sender == okButt)
+    {
+      result = NSAlertDefaultReturn;
+    }
+  else
+    {
     result = NSAlertAlternateReturn;
-  }
+    }
 
   [[NSApplication sharedApplication] stopModal];
   [self orderOut: nil];

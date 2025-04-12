@@ -20,7 +20,7 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111 USA.
+ * Foundation, Inc., 31 Milk Street #960789 Boston, MA 02196 USA.
  */
 
 
@@ -301,7 +301,7 @@
     FSNBrowserColumn *bc = [columns objectAtIndex: column + i];
     FSNode *nd = [components objectAtIndex: i];
     FSNBrowserCell *cell = [bc selectCellOfNode: nd sendAction: NO];
-    
+
     if (cell) {
       if ([cell isLeaf]) {
         break;
@@ -311,7 +311,7 @@
       break;
     }
     
-    nd = [FSNode nodeWithRelativePath: [nd name] parent: [bc shownNode]];
+    nd = [FSNode nodeWithRelativePath: [nd lastPathComponent] parent: [bc shownNode]];
     [self addAndLoadColumnForNode: nd];
   }
   
@@ -326,9 +326,9 @@
     FSNode *node = [selection objectAtIndex: 0];
     FSNBrowserColumn *bc;
     NSArray *selNodes;
-    
+
     updateViewsLock++;
-    
+
     if ([selection count] > 1) {
       BOOL alldirs = YES;
       int i;
