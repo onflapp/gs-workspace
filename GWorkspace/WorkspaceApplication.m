@@ -694,6 +694,11 @@
   return nil;
 }
 
+- (BOOL) isLoggingOut
+{
+  return loggingout;
+}
+
 - (NSArray *)storedAppInfo
 {
   NSDictionary *runningInfo = nil;
@@ -974,7 +979,9 @@
       GWLaunchedApp *gwapp = [self launchedAppWithPath: gwBundlePath andName: gwProcessName];
       NSMutableString *appNames = [NSMutableString string];
       NSString *msg = nil;
+      BOOL ask = YES;
       NSUInteger count;
+      NSUInteger rv;
       NSUInteger i;
 
       [launched addObjectsFromArray: launchedApps];
@@ -992,16 +999,20 @@
             [appNames appendString: @", "];
         }
     
-      msg = [NSString stringWithFormat: @"%@\n%@\n%@",
+      if (ask)
+        {
+          msg = [NSString stringWithFormat: @"%@\n%@\n%@",
                       NSLocalizedString(@"The following applications:", @""),
                       appNames, 
                       NSLocalizedString(@"refuse to terminate.", @"")];    
 
-      if (NSRunAlertPanel(NSLocalizedString(@"Logout", @""),
+          rv = NSRunAlertPanel(NSLocalizedString(@"Logout", @""),
                           msg,
                           NSLocalizedString(@"Kill applications", @""),
                           NSLocalizedString(@"Cancel logout", @""),
-                          nil))
+                          nil);
+        }
+	    if (rv)
         {
           for (i = 0; i < [launched count]; i++)
             {
