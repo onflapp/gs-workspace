@@ -125,14 +125,7 @@
 
 	if ([[node path] isEqual: path_separator()])
 	  {
-	    NSHost *host = [NSHost currentHost];
-	    NSString *hname = [host name];
-	    NSRange range = [hname rangeOfString: @"."];
-	    if (range.length != 0)
-	      {
-		hname = [hname substringToIndex: range.location];
-	      }
-	    name = hname;
+	    name = systemName();
 	  }
 	else
 	  {

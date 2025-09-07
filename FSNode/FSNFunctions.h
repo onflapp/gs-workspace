@@ -46,4 +46,5 @@ void showAlertInvalidName(Class c);
 NSInteger showAlertExtensionChange(Class c, NSString *extension);
 void showAlertNameInUse(Class c, NSString *newname);
 
+NSString *systemName(void);
 #endif // FSN_FUNCTIONS_H

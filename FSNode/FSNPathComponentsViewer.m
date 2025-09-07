@@ -288,15 +288,7 @@ static NSImage *branchImage;
     isLeaf = NO;
 
 		if ([[node path] isEqual: path_separator()] && ([node isMountPoint] == NO)) {
-		  NSHost *host = [NSHost currentHost];
-		  NSString *hname = [host name];
-		  NSRange range = [hname rangeOfString: @"."];
-
-		  if (range.length != 0) {	
-			  hname = [hname substringToIndex: range.location];
-		  } 			
-      
-		  ASSIGN (hostname, hname);
+		  ASSIGN (hostname, systemName());
 		} 
 
     label = [NSTextFieldCell new];

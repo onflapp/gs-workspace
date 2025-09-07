@@ -108,15 +108,7 @@
 
       if (isRootIcon)
 	{
-	  NSHost *host = [NSHost currentHost];
-	  NSString *hname = [host name];
-	  NSRange range = [hname rangeOfString: @"."];
-
-	  if (range.length != 0)
-	    {
-	      hname = [hname substringToIndex: range.location];
-	    }
-	  ASSIGN (hostname, hname);
+          ASSIGN (hostname, systemName());
 	}
       else
 	{
@@ -220,13 +212,7 @@
 
   if (isRootIcon)
     {
-      NSHost *host = [NSHost currentHost];
-      NSString *hname = [host name];
-      NSRange range = [hname rangeOfString: @"."];
-
-      if (range.length != 0)
-	hname = [hname substringToIndex: range.location];
-      ASSIGN (hostname, hname);
+      ASSIGN (hostname, systemName());
     }
   else
     {
